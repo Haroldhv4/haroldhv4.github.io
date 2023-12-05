@@ -100,6 +100,31 @@
         </div>
     </div>
     <div id="slider"></div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyA9JyC1FArkYAjWUgm29H5c1sxIlW_jULU",
+          authDomain: "conexion-7e860.firebaseapp.com",
+          databaseURL: "https://conexion-7e860-default-rtdb.firebaseio.com",
+          projectId: "conexion-7e860",
+          storageBucket: "conexion-7e860.appspot.com",
+          messagingSenderId: "118557329800",
+          appId: "1:118557329800:web:1de1a868883f98ae4dd23d",
+          measurementId: "G-HTQ3BJC46X"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
         <!-- SECCION FOOTER -->
     <footer>
         <p>Todos los derechos reservados - 2023</p>
