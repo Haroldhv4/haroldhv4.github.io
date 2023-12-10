@@ -202,7 +202,7 @@ html {
     color: #000000;
     border-radius: 5px;
     border: 1px solid #444444;
-    padding: 10px 0px;
+    padding: 10px 5px;
     margin-top: 5px;
     transition: .5s;
 }
