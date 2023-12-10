@@ -64,6 +64,42 @@
         </div>
     </section>
         <script type="module">
+        //validacion de campos
+        const fechaElaboracionInput = document.getElementById("fecha_elaboracion");
+        const fechaCaducidadInput = document.getElementById("fecha_caducidad");
+
+        fechaElaboracionInput.addEventListener("input", validarFechas);
+        fechaCaducidadInput.addEventListener("input", validarFechas);
+
+        function validarFechas() {
+            const fechaElaboracion = new Date(fechaElaboracionInput.value);
+            const fechaCaducidad = new Date(fechaCaducidadInput.value);
+            const fechaActual = new Date();
+
+            if (fechaElaboracion < fechaActual) {
+                fechaElaboracionInput.setCustomValidity("Error: La fecha de elaboración no puede ser menor al día actual.");
+            } else {
+                fechaElaboracionInput.setCustomValidity("");
+            }
+
+            if (fechaElaboracion > fechaCaducidad) {
+                fechaCaducidadInput.setCustomValidity("Error: La fecha de elaboración no puede ser mayor a la fecha de caducidad.");
+            } else {
+                fechaCaducidadInput.setCustomValidity("");
+            }
+        }
+        function validarTexto(input) {
+            const regex = /^[A-Za-z ]+$/;
+            const mensajeError = document.getElementById("mensaje-error");
+  
+            if (!regex.test(input.value)) {
+                mensajeError.style.display = "block";
+                input.setCustomValidity("Solo se permiten letras y espacios.");
+            } else {
+                mensajeError.style.display = "none";
+                input.setCustomValidity("");
+            }
+        }
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
         import { getDatabase,ref,push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"; //paquete para el real-timeDatabase;        // TODO: Add SDKs for Firebase products that you want to use
