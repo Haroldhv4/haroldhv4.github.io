@@ -42,20 +42,20 @@
                 <form method="post" action="">
                     <!-- Campos del formulario -->
                     <label for="nombre">Nombre del Producto (Máx. 20 caracteres):</label><br>
-                    <input type="text" name="nombre" id="nombre" maxlength="20" oninput="validarTexto(this)" required>
+                    <input class="input" type="text" name="nombre" id="nombre" maxlength="20" oninput="validarTexto(this)" required>
                     <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
 
                     <label for="cantidad">Cantidad (Máx. 4 dígitos):</label><br>
-                    <input type="number" name="cantidad" id="cantidad" max="9999" required><br>
+                    <input class="input" type="number" name="cantidad" id="cantidad" max="9999" required><br>
 
                     <label for="fecha_elaboracion">Fecha de Elaboración:</label><br>
-                    <input type="date" name="fecha_elaboracion" id="fecha_elaboracion" required><br>
+                    <input class="input" type="date" name="fecha_elaboracion" id="fecha_elaboracion" required><br>
 
                     <label for="fecha_caducidad">Fecha de Caducidad:</label><br>
-                    <input type="date" name="fecha_caducidad" id="fecha_caducidad" required><br>
+                    <input class="input" type="date" name="fecha_caducidad" id="fecha_caducidad" required><br>
 
                     <label for="proveedor">Proveedor:</label><br>
-                    <input type="text" name="proveedor" id="proveedor" oninput="validarTexto(this)" required><br>
+                    <input class="input" type="text" name="proveedor" id="proveedor" oninput="validarTexto(this)" required><br>
                     <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
                     <br>
                     <button type="button" onclick="crearRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center;">Enviar</button>
