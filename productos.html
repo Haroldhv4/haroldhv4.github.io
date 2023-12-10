@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Registro Producto</title>
+</head>
+<body>
+    <!-- SECCION I N I C I O -->
+    <section id="inicio">
+        <div class="contenido">
+            <header>
+                <div class="contenido-header">
+                    <h1>/SI/</h1>
+                    <nav id="nav" class="">
+                        <!-- Menú de navegación -->
+                        <ul id="links">
+                            <li><a href="#" class="seleccionado" onclick="seleccionar(this)">INICIO</a></li>
+                            <li><a href="#" onclick="seleccionar(this)">NOSOTROS</a></li>
+                            <li><a href="#">PRODUCTOS</a></li>
+                            <li><a href="#" onclick="seleccionar(this)"> PROVEEDOR </a></li>
+                        </ul>
+                    </nav>
+                    <!-- Icono del menu responsive -->
+                    <!-- Redes sociales -->
+                    <div id="icono-nav" onclick="responsiveMenu()">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                    <div class="redes">
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram-square"></i></a>
+                    </div>
+                </div>
+            </header>
+            <div class="presentacion">
+                <p class="bienvenida">Registro de Productos</p>
+                <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
+                <form method="post" action="">
+                    <!-- Campos del formulario -->
+                    <label for="nombre">Nombre del Producto (Máx. 20 caracteres):</label><br>
+                    <input type="text" name="nombre" id="nombre" maxlength="20" oninput="validarTexto(this)" required>
+                    <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
+
+                    <label for="cantidad">Cantidad (Máx. 4 dígitos):</label><br>
+                    <input type="number" name="cantidad" id="cantidad" max="9999" required><br>
+
+                    <label for="fecha_elaboracion">Fecha de Elaboración:</label><br>
+                    <input type="date" name="fecha_elaboracion" id="fecha_elaboracion" required><br>
+
+                    <label for="fecha_caducidad">Fecha de Caducidad:</label><br>
+                    <input type="date" name="fecha_caducidad" id="fecha_caducidad" required><br>
+
+                    <label for="proveedor">Proveedor:</label><br>
+                    <input type="text" name="proveedor" id="proveedor" oninput="validarTexto(this)" required><br>
+                    <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
+                    <br>
+                    <button type="button" onclick="crearRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center;">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+        <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getDatabase,ref,push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"; //paquete para el real-timeDatabase;        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCP7oz1M9o-VL-Ak-k_cmap_ro31yPt_jw",
+          authDomain: "productos-70297.firebaseapp.com",
+          databaseURL: "https://productos-70297-default-rtdb.firebaseio.com",
+          projectId: "productos-70297",
+          storageBucket: "productos-70297.appspot.com",
+          messagingSenderId: "605816137465",
+          appId: "1:605816137465:web:4740053ed7706fc7596428"
+        };
+                // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database= getDatabase(app);//Establecer conexion con mi base de datos
+        window.crearRegistro=function(){
+            const nombre=document.getElementById("nombre").value;
+            const cantidad=document.getElementById("cantidad").value;
+            const fecha_elaboracion=document.getElementById("fecha_elaboracion").value;
+            const fecha_caducidad=document.getElementById("fecha_caducidad").value;
+            const proveedor=document.getElementById("proveedor").value;
+            console.log(nombre,cantidad,fecha_elaboracion,fecha_caducidad,proveedor);
+            push(
+                ref(database,'septimo'),
+                {
+                    nombre:nombre,
+                    cantidad:cantidad,
+                    fecha_elaboracion:fecha_elaboracion,
+                    fecha_caducidad: fecha_caducidad,
+                    proveedor: proveedor
+                }
+            );
+            alert('Datos ingresados');
+            document.getElementById('nombre').value="";
+            document.getElementById('cantidad').value="";
+            document.getElementById('fecha_elaboracion').value="";
+            document.getElementById('fecha_caducidad').value="";
+            document.getElementById('proveedor').value="";
+        }
+    </script>
+</body>
+</html>
