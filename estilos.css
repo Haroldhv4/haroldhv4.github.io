@@ -14,7 +14,7 @@ html {
 /* *********************/
 
 #inicio {
-    background: linear-gradient( rgba(0, 0, 0, .8), rgba(0, 0, 0, .7)), url("img/3.jpg");
+    background: linear-gradient( rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("img/fondo-inicio.jpg");
     background-size: cover;
     background-position: center center;
     height: 100vh;
@@ -141,13 +141,13 @@ html {
     max-width: 1100px;
     margin: auto;
     padding: 100px 15px;
-    color: #ffffff;
+    color: #111135;
     display: flex;
 }
 
 #sobremi .contenedor-foto {
     max-width: 400px;
-    margin-right: 0px;
+    margin-right: 80px;
 }
 
 #sobremi .contenedor-foto img {
@@ -164,7 +164,7 @@ html {
 #sobremi .sobremi .titulo-seccion {
     font-size: 22px;
     text-transform: uppercase;
-    color: #ffffff; 
+    color: #111135;
     text-decoration: underline;
     text-decoration-color: #d3d3d3;
     text-decoration-thickness: 5px;
@@ -178,7 +178,7 @@ html {
 }
 
 #sobremi .sobremi h2 span {
-    color: #ff3c70;
+    color: #ff5080;
 }
 
 #sobremi .sobremi h3 {
@@ -192,18 +192,18 @@ html {
 #sobremi .sobremi p {
     font-size: 14px;
     line-height: 25px;
-    color: #000000;
+    color: #565656;
     margin-bottom: 12px;
 }
 
 #sobremi .sobremi a {
     display: inline-block;
     text-decoration: none;
-    color: #000000;
-    border-radius: 5px;
-    border: 1px solid #444444;
-    padding: 10px 5px;
-    margin-top: 5px;
+    color: #000;
+    border-radius: 30px;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    margin-top: 30px;
     transition: .5s;
 }
 
@@ -539,10 +539,10 @@ footer a {
 
 @media screen and (max-width: 800px) {
     .redes {
-        display: inline-block;
+        display: none;
     }
     nav {
-        display: inline-block;
+        display: none;
     }
     nav.responsive {
         display: block;
@@ -626,167 +626,4 @@ footer a {
     {
         font-size: 30px;
     }
-}
-
-/*Seccion buscador */
-body {
-    font-family: Arial, sans-serif;
-}
-.search-container {
-    display: flex;
-    margin: 20px auto;
-    max-width: 500px;
-}
-
-#searchInput {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-}
-
-#searchButton {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #4285F4;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-#searchResults {
-    list-style-type: none;
-    padding: 0;
-}
-
-#searchResults li {
-    margin-bottom: 10px;
-}
-/* Utilizamos flexbox para alinear los elementos horizontalmente */
-#navegacion {
-display: none;
-justify-content: space-between; /* Espacio entre elementos */
-list-style: none; /* Quitamos los puntos de lista */
-padding: 0; /* Quitamos el relleno predeterminado de la lista */
-}
-
-/* Utilizamos "float" para alinear dos elementos a la izquierda */
-#navegacion li:nth-child(-n+2) {
-float: left;
-}
-
-/* Utilizamos "float" para alinear dos elementos a la derecha */
-#navegacion li:nth-child(n+3) {
-float: right;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-conten{
-width: 100vw;
-height: 100vh;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-}
-
-input{
-    width: 50vw;
-    padding: 10px;
-    outline: none;
-    border: 5px solid #CCD1E4;
-    font-weight: 600;
-}
-
-#listaArticulos{
-    display: none;
-    justify-content: space-between; /* Espacio entre elementos */
-    list-style: none; /* Quitamos los puntos de lista */
-    padding: 0; /* Quitamos el relleno predeterminado de la lista */
-}
-    /* Utilizamos "float" para alinear dos elementos a la izquierda */
-#listaArticulos li:nth-child(-n+2) {
-float: left;
-}
-
-/* Utilizamos "float" para alinear dos elementos a la derecha */
-#listaArticulos li:nth-child(n+3) {
-float: right;
-}
-
-li{
-    margin: 5px 0;
-}
-
-.filtro{
-display: none;
-}
-
-
-/*Seccion Mapa*/
-#map{
-    width: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-   }
-
-.listing-group {
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    position: absolute;
-    top: 80px;
-    right: 10px;
-    z-index: 1;
-    border-radius: 3px;
-    max-width: 20%;
-    color: #fff;
-    }
- 
-.listing-group input[type='checkbox']:first-child + label {
-border-radius: 3px 3px 0 0;
-}
- 
-.listing-group label:last-child {
-border-radius: 0 0 3px 3px;
-border: none;
-}
- 
-.listing-group input[type='checkbox'] {
-display: none;
-}
- 
-.listing-group input[type='checkbox'] + label {
-background-color: #3386c0;
-display: block;
-cursor: pointer;
-padding: 10px;
-border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-}
- 
-.listing-group input[type='checkbox'] + label {
-background-color: #3386c0;
-text-transform: capitalize;
-}
- 
-.listing-group input[type='checkbox'] + label:hover,
-.listing-group input[type='checkbox']:checked + label {
-background-color: #4ea0da;
-}
- 
-.listing-group input[type='checkbox']:checked + label:before {
-content: '✔';
-margin-right: 5px;
-}
-.campo-contenedor {
-    position: relative;
-}
-
-.mensaje-error {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    color: rgb(141, 141, 141);
-    font-size: 12px;
-    display: none;
 }
