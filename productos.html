@@ -19,8 +19,8 @@
                         <!-- Menú de navegación -->
                         <ul id="links">
                             <li><a href="index.html" class="seleccionado" onclick="seleccionar(this)">INICIO</a></li>
-                            <li><a href="#" onclick="seleccionar(this)">NOSOTROS</a></li>
-                            <li><a href="#">PRODUCTOS</a></li>
+                            <li><a href="productos.html" onclick="seleccionar(this)">PRODUCTOS</a></li>
+                            <li><a href="#">VENTAS</a></li>
                             <li><a href="#" onclick="seleccionar(this)"> PROVEEDOR </a></li>
                         </ul>
                     </nav>
@@ -69,60 +69,26 @@
         </div>
     </section>
         <script type="module">
-        //validacion de campos
-        const fechaElaboracionInput = document.getElementById("fecha_elaboracion");
-        const fechaCaducidadInput = document.getElementById("fecha_caducidad");
-
-        fechaElaboracionInput.addEventListener("input", validarFechas);
-        fechaCaducidadInput.addEventListener("input", validarFechas);
-
-        function validarFechas() {
-            const fechaElaboracion = new Date(fechaElaboracionInput.value);
-            const fechaCaducidad = new Date(fechaCaducidadInput.value);
-            const fechaActual = new Date();
-
-            if (fechaElaboracion < fechaActual) {
-                fechaElaboracionInput.setCustomValidity("Error: La fecha de elaboración no puede ser menor al día actual.");
-            } else {
-                fechaElaboracionInput.setCustomValidity("");
-            }
-
-            if (fechaElaboracion > fechaCaducidad) {
-                fechaCaducidadInput.setCustomValidity("Error: La fecha de elaboración no puede ser mayor a la fecha de caducidad.");
-            } else {
-                fechaCaducidadInput.setCustomValidity("");
-            }
-        }
-        function validarTexto(input) {
-            const regex = /^[A-Za-z ]+$/;
-            const mensajeError = document.getElementById("mensaje-error");
-  
-            if (!regex.test(input.value)) {
-                mensajeError.style.display = "block";
-                input.setCustomValidity("Solo se permiten letras y espacios.");
-            } else {
-                mensajeError.style.display = "none";
-                input.setCustomValidity("");
-            }
-        }
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getDatabase,ref,push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"; //paquete para el real-timeDatabase;        // TODO: Add SDKs for Firebase products that you want to use
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";            // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
-      
+          
         // Your web app's Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyCP7oz1M9o-VL-Ak-k_cmap_ro31yPt_jw",
-          authDomain: "productos-70297.firebaseapp.com",
-          databaseURL: "https://productos-70297-default-rtdb.firebaseio.com",
-          projectId: "productos-70297",
-          storageBucket: "productos-70297.appspot.com",
-          messagingSenderId: "605816137465",
-          appId: "1:605816137465:web:4740053ed7706fc7596428"
-        };
-                // Initialize Firebase
+            apiKey: "AIzaSyBMJsVpnbOwVOiVNbTZScZdet9qlGigDL0",
+            authDomain: "conexion-8ec0d.firebaseapp.com",
+            databaseURL: "https://conexion-8ec0d-default-rtdb.firebaseio.com",
+            projectId: "conexion-8ec0d",
+            storageBucket: "conexion-8ec0d.appspot.com",
+            messagingSenderId: "679910299749",
+            appId: "1:679910299749:web:9800b464879628b4850e8c"
+            };
+          
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const database= getDatabase(app);//Establecer conexion con mi base de datos
+        const database = getDatabase(app);
+
         window.crearRegistro=function(){
             const nombre=document.getElementById("nombre").value;
             const cantidad=document.getElementById("cantidad").value;
