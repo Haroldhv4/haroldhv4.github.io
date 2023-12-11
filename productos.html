@@ -116,38 +116,40 @@
             document.getElementById('fecha_elaboracion').value="";
             document.getElementById('fecha_caducidad').value="";
             document.getElementById('proveedor').value="";
-            function visualizarRegistros() {
-    const registrosRef = ref(database, 'Harold Vega');
+        function visualizarRegistros() {
+        const registrosRef = ref(database, 'Harold Vega');
 
-    onValue(registrosRef, (snapshot) => {
-        const registros = snapshot.val();
+        onValue(registrosRef, (snapshot) => {
+            const registros = snapshot.val();
 
-        // Select the container where you want to display the records
-        const container = document.getElementById('registros-container');
-        container.innerHTML = ''; // Clear previous content
+            // Select the container where you want to display the records
+            const container = document.getElementById('registros-container');
+            container.innerHTML = ''; // Clear previous content
 
-        for (const key in registros) {
-            if (registros.hasOwnProperty(key)) {
-                const producto = registros[key];
+            for (const key in registros) {
+                if (registros.hasOwnProperty(key)) {
+                    const producto = registros[key];
 
-                // Create HTML elements for each record
-                const div = document.createElement('div');
-                div.innerHTML = `
-                    <p><strong>Nombre:</strong> ${producto.nombre}</p>
-                    <p><strong>Cantidad:</strong> ${producto.cantidad}</p>
-                    <p><strong>Fecha de Elaboración:</strong> ${producto.fecha_elaboracion}</p>
-                    <p><strong>Fecha de Caducidad:</strong> ${producto.fecha_caducidad}</p>
-                    <p><strong>Proveedor:</strong> ${producto.proveedor}</p>
-                    <button type="button" onclick="editarRegistro('${key}')">Editar</button>
-                    <button type="button" onclick="eliminarRegistro('${key}')">Eliminar</button>
-                    <hr>
-                `;
+                    // Create HTML elements for each record
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <p><strong>Nombre:</strong> ${producto.nombre}</p>
+                        <p><strong>Cantidad:</strong> ${producto.cantidad}</p>
+                        <p><strong>Fecha de Elaboración:</strong> ${producto.fecha_elaboracion}</p>
+                        <p><strong>Fecha de Caducidad:</strong> ${producto.fecha_caducidad}</p>
+                        <p><strong>Proveedor:</strong> ${producto.proveedor}</p>
+                        <button type="button" onclick="editarRegistro('${key}')">Editar</button>
+                        <button type="button" onclick="eliminarRegistro('${key}')">Eliminar</button>
+                        <hr>
+                `   ;
 
-                // Append the record to the container
-                container.appendChild(div);
+                    // Append the record to the container
+                    container.appendChild(div);
+                }
             }
-        }
-    });
+        });
+}
+
 }
 
         }
