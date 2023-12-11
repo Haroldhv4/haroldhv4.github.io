@@ -64,6 +64,8 @@
                     <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
                     <br>
                     <button type="button" onclick="crearRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center;">Enviar</button>
+                    <br>
+                    <button type="button" onclick="visualizarRegistros()">Visualizar Registros</button>
                 </form>
             </div>
         </div>
@@ -114,6 +116,16 @@
             document.getElementById('fecha_caducidad').value="";
             document.getElementById('proveedor').value="";
         }
+
+        function visualizarRegistros() {
+            const registrosRef = ref(database, 'Harold Vega');
+
+        onValue(registrosRef, (snapshot) => {
+            const registros = snapshot.val();
+            // Display or process the records as needed
+            console.log(registros);
+        });
+}
     </script>
 </body>
 </html>
