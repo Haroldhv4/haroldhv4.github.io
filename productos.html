@@ -1,53 +1,13 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="estilos.css">
-    <style>
-        /* Add your additional styles here */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
     <title>Registro Producto</title>
 </head>
-
 <body>
     <!-- SECCION I N I C I O -->
     <section id="inicio">
@@ -82,51 +42,96 @@
                 <form method="post" action="">
                     <!-- Campos del formulario -->
                     <label for="nombre">Nombre del Producto (Máx. 20 caracteres):</label><br>
-                    <input type="text" name="nombre" id="nombre" maxlength="20" oninput="validarTexto(this)" required
-                        style="width: 50vw;
+                    <input type="text" name="nombre" id="nombre" maxlength="20" oninput="validarTexto(this)" required style="width: 50vw;
                     padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;">
                     <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
 
                     <label for="cantidad">Cantidad (Máx. 4 dígitos):</label><br>
-                    <input type="number" name="cantidad" id="cantidad" max="9999" required
-                        style="width: 50vw;
+                    <input type="number" name="cantidad" id="cantidad" max="9999" required style="width: 50vw;
                     padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
 
                     <label for="fecha_elaboracion">Fecha de Elaboración:</label><br>
-                    <input type="date" name="fecha_elaboracion" id="fecha_elaboracion" required
-                        style="width: 50vw;
+                    <input type="date" name="fecha_elaboracion" id="fecha_elaboracion" required style="width: 50vw;
                     padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
-
+                    
                     <label for="fecha_caducidad">Fecha de Caducidad:</label><br>
-                    <input type="date" name="fecha_caducidad" id="fecha_caducidad" required
-                        style="width: 50vw;
+                    <input type="date" name="fecha_caducidad" id="fecha_caducidad" required style="width: 50vw;
                     padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
 
                     <label for="proveedor">Proveedor:</label><br>
-                    <input type="text" name="proveedor" id="proveedor" oninput="validarTexto(this)" required
-                        style="width: 50vw;
+                    <input type="text" name="proveedor" id="proveedor" oninput="validarTexto(this)" required style="width: 50vw;
                     padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
                     <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
                     <br>
-                    <button type="button" onclick="crearRegistro()"
-                        style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center;">Enviar</button>
+                    <button type="button" onclick="crearRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center;">Enviar</button>
+                    <br>
+                    <div id="registros-container"> Registro de Productos </div>
+                    <button type="button" onclick="visualizarRegistros()">Visualizar Registros</button>
                 </form>
-
-                <!-- Button to trigger visualization -->
-                <button type="button" onclick="visualizarRegistros()">Visualizar Registros</button>
             </div>
         </div>
+                <!-- Add this table where you want to display the records -->
+<table id="registros-table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Fecha de Elaboración</th>
+            <th>Fecha de Caducidad</th>
+            <th>Proveedor</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+        <script>
+        function visualizarRegistros() {
+            const registrosRef = ref(database, 'Harold Vega');
+        
+            onValue(registrosRef, (snapshot) => {
+                const registros = snapshot.val();
+        
+                // Select the tbody of the table where you want to display the records
+                const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; // Clear previous content
+        
+                for (const key in registros) {
+                    if (registros.hasOwnProperty(key)) {
+                        const producto = registros[key];
+        
+                        // Create a new row for each record
+                        const row = tableBody.insertRow();
+        
+                        // Insert cells with record data
+                        const cellNombre = row.insertCell(0);
+                        cellNombre.textContent = producto.nombre;
+        
+                        const cellCantidad = row.insertCell(1);
+                        cellCantidad.textContent = producto.cantidad;
+        
+                        const cellFechaElaboracion = row.insertCell(2);
+                        cellFechaElaboracion.textContent = producto.fecha_elaboracion;
+        
+                        const cellFechaCaducidad = row.insertCell(3);
+                        cellFechaCaducidad.textContent = producto.fecha_caducidad;
+        
+                        const cellProveedor = row.insertCell(4);
+                        cellProveedor.textContent = producto.proveedor;
+        
+                        const cellAcciones = row.insertCell(5);
+                        cellAcciones.innerHTML = `<button type="button" onclick="editarRegistro('${key}')">Editar</button>
+                                                  <button type="button" onclick="eliminarRegistro('${key}')">Eliminar</button>`;
+                    }
+                }
+        
+                // Open the modal
+                abrirModal();
+            });
+        }
+    </script>
+        
     </section>
-
-    <!-- Modal container -->
-    <div id="modal-container" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModal()">&times;</span>
-            <div id="registros-container-modal"></div>
-        </div>
-    </div>
-
-    <script type="module">
+        <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -172,47 +177,6 @@
             document.getElementById('fecha_caducidad').value="";
             document.getElementById('proveedor').value="";
 }
-
-
-        // Function to open the modal
-        function abrirModal() {
-            const modal = document.getElementById('modal-container');
-            modal.style.display = 'block';
-        }
-
-        // Function to close the modal
-        function cerrarModal() {
-            const modal = document.getElementById('modal-container');
-            modal.style.display = 'none';
-        }
-
-        function visualizarRegistros() {
-    const registrosRef = ref(database, 'Harold Vega');
-
-    onValue(registrosRef, (snapshot) => {
-        const registros = snapshot.val();
-
-        // Display an alert with the records
-        let alertMessage = 'Registros:\n\n';
-        for (const key in registros) {
-            if (registros.hasOwnProperty(key)) {
-                const producto = registros[key];
-                alertMessage += `Nombre: ${producto.nombre}\n`;
-                alertMessage += `Cantidad: ${producto.cantidad}\n`;
-                alertMessage += `Fecha de Elaboración: ${producto.fecha_elaboracion}\n`;
-                alertMessage += `Fecha de Caducidad: ${producto.fecha_caducidad}\n`;
-                alertMessage += `Proveedor: ${producto.proveedor}\n\n`;
-            }
-        }
-
-        if (alertMessage === 'Registros:\n\n') {
-            alert('No hay registros disponibles.'); // Display a message if there are no records
-        } else {
-            alert(alertMessage); // Display the alert with records
-        }
-    });
-}
-    </script>
+  </script>
 </body>
-
 </html>
