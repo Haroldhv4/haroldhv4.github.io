@@ -70,66 +70,6 @@
                 </form>
             </div>
         </div>
-                <!-- Add this table where you want to display the records -->
-<table id="registros-table">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Fecha de Elaboración</th>
-            <th>Fecha de Caducidad</th>
-            <th>Proveedor</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-        <script>
-        function visualizarRegistros() {
-            const registrosRef = ref(database, 'Harold Vega');
-        
-            onValue(registrosRef, (snapshot) => {
-                const registros = snapshot.val();
-        
-                // Select the tbody of the table where you want to display the records
-                const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
-                tableBody.innerHTML = ''; // Clear previous content
-        
-                for (const key in registros) {
-                    if (registros.hasOwnProperty(key)) {
-                        const producto = registros[key];
-        
-                        // Create a new row for each record
-                        const row = tableBody.insertRow();
-        
-                        // Insert cells with record data
-                        const cellNombre = row.insertCell(0);
-                        cellNombre.textContent = producto.nombre;
-        
-                        const cellCantidad = row.insertCell(1);
-                        cellCantidad.textContent = producto.cantidad;
-        
-                        const cellFechaElaboracion = row.insertCell(2);
-                        cellFechaElaboracion.textContent = producto.fecha_elaboracion;
-        
-                        const cellFechaCaducidad = row.insertCell(3);
-                        cellFechaCaducidad.textContent = producto.fecha_caducidad;
-        
-                        const cellProveedor = row.insertCell(4);
-                        cellProveedor.textContent = producto.proveedor;
-        
-                        const cellAcciones = row.insertCell(5);
-                        cellAcciones.innerHTML = `<button type="button" onclick="editarRegistro('${key}')">Editar</button>
-                                                  <button type="button" onclick="eliminarRegistro('${key}')">Eliminar</button>`;
-                    }
-                }
-        
-                // Open the modal
-                abrirModal();
-            });
-        }
-    </script>
-        
     </section>
         <script type="module">
         // Import the functions you need from the SDKs you need
