@@ -66,10 +66,24 @@
                     <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
                     <div  style="display: flex; justify-content: space-between; align-items: center;">
                     <a type="button" onclick="crearRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;">Enviar</a>
-                    <a href="visualizar.html" type="button"  onclick="visualizarRegistros()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;" > VISUALIZAR</a>
+                    <a href="#" type="button" onclick="visualizarRegistros()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;" > VISUALIZAR</a>
                     <a type="button" onclick="actualizarRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;" > ACTUALIZAR</a>
                     </div>
                 </form>
+
+                <!-- Agregué una tabla para mostrar los registros -->
+                <table id="registros-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Fecha de Elaboración</th>
+                            <th>Fecha de Caducidad</th>
+                            <th>Proveedor</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </section>
