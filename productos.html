@@ -116,45 +116,6 @@
             document.getElementById('fecha_caducidad').value="";
             document.getElementById('proveedor').value="";
         }
-
-function fetchAndDisplayData() {
-    const registrosRef = firebase.database().ref('Harold Vega');
-
-    registrosRef.once('value')
-        .then((snapshot) => {
-            const registros = snapshot.val();
-
-            if (registros) {
-                displayRecordsInTable(registros);
-            } else {
-                console.log('No hay registros disponibles.');
-            }
-        })
-        .catch((error) => {
-            console.error("Error fetching data:", error);
-        });
-}
-
-function displayRecordsInTable(registros) {
-    const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
-    tableBody.innerHTML = ''; // Clear previous content
-
-    for (const key in registros) {
-        if (registros.hasOwnProperty(key)) {
-            const producto = registros[key];
-
-            const row = tableBody.insertRow();
-            row.innerHTML = `
-                <td>${producto.nombre}</td>
-                <td>${producto.cantidad}</td>
-                <td>${producto.fecha_elaboracion}</td>
-                <td>${producto.fecha_caducidad}</td>
-                <td>${producto.proveedor}</td>
-            `;
-        }
-    }
-}
-
   </script>
 </body>
 </html>

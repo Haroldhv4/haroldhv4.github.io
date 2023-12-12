@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,54 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
     <title>Registro Producto</title>
+</head>
+
+<body>
+    <!-- SECCION I N I C I O -->
+    <section id="inicio">
+        <div class="contenido">
+            <header>
+                <div class="contenido-header">
+                    <h1>/SI/</h1>
+                    <nav id="nav" class="">
+                        <!-- Menú de navegación -->
+                        <ul id="links">
+                            <li><a href="index.html" class="seleccionado" onclick="seleccionar(this)">INICIO</a></li>
+                            <li><a href="productos.html" onclick="seleccionar(this)">PRODUCTOS</a></li>
+                            <li><a href="#">VENTAS</a></li>
+                            <li><a href="#" onclick="seleccionar(this)"> PROVEEDOR </a></li>
+                        </ul>
+                    </nav>
+                    <!-- Icono del menú responsive -->
+                    <!-- Redes sociales -->
+                    <div id="icono-nav" onclick="responsiveMenu()">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                    <div class="redes">
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram-square"></i></a>
+                    </div>
+                </div>
+            </header>
+            <div class="presentacion">
+                <p class="bienvenida">Lista de Productos</p>
+                <table id="registros-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Fecha de Elaboración</th>
+                            <th>Fecha de Caducidad</th>
+                            <th>Proveedor</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <script>
         // Firebase configuration
         const firebaseConfig = {
@@ -63,55 +112,11 @@
             }
         }
 
-        // Example usage:
-        // Call fetchAndDisplayData() when you want to retrieve and display data
-        fetchAndDisplayData();
+        // Call fetchAndDisplayData() when the DOM has fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchAndDisplayData();
+        });
     </script>
-</head>
-<body>
-    <!-- SECCION I N I C I O -->
-    <section id="inicio">
-        <div class="contenido">
-            <header>
-                <div class="contenido-header">
-                    <h1>/SI/</h1>
-                    <nav id="nav" class="">
-                        <!-- Menú de navegación -->
-                        <ul id="links">
-                            <li><a href="index.html" class="seleccionado" onclick="seleccionar(this)">INICIO</a></li>
-                            <li><a href="productos.html" onclick="seleccionar(this)">PRODUCTOS</a></li>
-                            <li><a href="#">VENTAS</a></li>
-                            <li><a href="#" onclick="seleccionar(this)"> PROVEEDOR </a></li>
-                        </ul>
-                    </nav>
-                    <!-- Icono del menu responsive -->
-                    <!-- Redes sociales -->
-                    <div id="icono-nav" onclick="responsiveMenu()">
-                        <i class="fa-solid fa-bars"></i>
-                    </div>
-                    <div class="redes">
-                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram-square"></i></a>
-                    </div>
-                </div>
-            </header>
-            <div class="presentacion">
-                <p class="bienvenida">Lista de Productos</p>
-                <table id="registros-table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Cantidad</th>
-                            <th>Fecha de Elaboración</th>
-                            <th>Fecha de Caducidad</th>
-                            <th>Proveedor</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
 </body>
+
 </html>
