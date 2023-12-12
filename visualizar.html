@@ -59,6 +59,9 @@
     </section>
 
     <script>
+        //librerias
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
         // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBMJsVpnbOwVOiVNbTZScZdet9qlGigDL0",
@@ -72,50 +75,60 @@
 
         firebase.initializeApp(firebaseConfig);
 
-        const database = firebase.database();
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-        function fetchAndDisplayData() {
-            const registrosRef = firebase.database().ref('Harold Vega');
+        window.visualizarRegistros = function () {
+            const registrosRef = ref(database, 'HaroldVega');
+            onValue(registrosRef, (snapshot) => {
+                const registros = snapshot.val();
+                const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
 
-            registrosRef.once('value')
-                .then((snapshot) => {
-                    const registros = snapshot.val();
-
-                    if (registros) {
-                        displayRecordsInTable(registros);
-                    } else {
-                        console.log('No hay registros disponibles.');
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error fetching data:", error);
-                });
+                if (registros) {
+                    displayRecordsInTable(registros);
+                } else {
+                    tableBody.innerHTML = '<tr><td colspan="6">No hay registros disponibles.</td></tr>';
+                    console.log('No hay registros disponibles.');
+                }
+            }, (error) => {
+                console.error("Error fetching data:", error);
+            });
         }
 
         function displayRecordsInTable(registros) {
             const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = ''; // Clear previous content
+            let tableRows = ''; // Variable para acumular las filas
 
-            for (const key in registros) {
-                if (registros.hasOwnProperty(key)) {
-                    const producto = registros[key];
+        for (const key in registros) {
+            if (registros.hasOwnProperty(key)) {
+                const producto = registros[key];
 
-                    const row = tableBody.insertRow();
-                    row.innerHTML = `
+                // Construir una cadena con la fila actual
+                tableRows += `
+                    <tr>
                         <td>${producto.nombre}</td>
                         <td>${producto.cantidad}</td>
                         <td>${producto.fecha_elaboracion}</td>
                         <td>${producto.fecha_caducidad}</td>
                         <td>${producto.proveedor}</td>
-                    `;
-                }
+                        <td>
+                            <button onclick="editarRegistro('${key}', '${producto.nombre}', '${producto.cantidad}', '${producto.fecha_elaboracion}', '${producto.fecha_caducidad}', '${producto.proveedor}')">Editar</button>
+                            <button onclick="eliminarRegistro('${key}')">Eliminar</button>
+                        </td>
+                    </tr>`;
             }
         }
 
-        // Call fetchAndDisplayData() when the DOM has fully loaded
-        document.addEventListener("DOMContentLoaded", function () {
-            fetchAndDisplayData();
-        });
+        // Asignar la cadena acumulada al contenido de la tabla
+        tableBody.innerHTML = tableRows;
+
+        if (tableRows === '') {
+            tableBody.innerHTML = '<tr><td colspan="6">No hay registros disponibles.</td></tr>';
+            console.log('No hay registros disponibles.');
+        }
+    }
+
+
     </script>
 </body>
 
