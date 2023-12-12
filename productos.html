@@ -193,63 +193,65 @@
         };
 
         window.actualizarRegistro = function () {
-            const nombre = document.getElementById("nombre").value;
-            const cantidad = document.getElementById("cantidad").value;
-            const fecha_elaboracion = document.getElementById("fecha_elaboracion").value;
-            const fecha_caducidad = document.getElementById("fecha_caducidad").value;
-            const proveedor = document.getElementById("proveedor").value;
-            console.log(nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor);
+        const nombre = document.getElementById("nombre").value;
+        const cantidad = document.getElementById("cantidad").value;
+        const fecha_elaboracion = document.getElementById("fecha_elaboracion").value;
+        const fecha_caducidad = document.getElementById("fecha_caducidad").value;
+        const proveedor = document.getElementById("proveedor").value;
+        console.log(nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor);
 
-            const registrosRef = ref(database, 'Harold Vega');
-            onValue(registrosRef, (snapshot) => {
-                const registros = snapshot.val();
-                if (registros) {
-                    // Assuming the first record is the one you want to update
-                    const firstKey = Object.keys(registros)[0];
-                    const firstRecord = registros[firstKey];
+        const registrosRef = ref(database, 'Harold Vega');
+        onValue(registrosRef, (snapshot) => {
+            const registros = snapshot.val();
+            if (registros) {
+                // Assuming the first record is the one you want to update
+                const firstKey = Object.keys(registros)[0];
+                const firstRecord = registros[firstKey];
 
-                    // Check if any field is different before updating
-                    if (
-                        firstRecord.nombre !== nombre ||
-                        firstRecord.cantidad !== cantidad ||
-                        firstRecord.fecha_elaboracion !== fecha_elaboracion ||
-                        firstRecord.fecha_caducidad !== fecha_caducidad ||
-                        firstRecord.proveedor !== proveedor
-                    ) {
-                        // Update the record with the new values
-                        update(ref(database, `Harold Vega/${firstKey}`), {
-                            nombre: nombre,
-                            cantidad: cantidad,
-                            fecha_elaboracion: fecha_elaboracion,
-                            fecha_caducidad: fecha_caducidad,
-                            proveedor: proveedor
-                        });
+                // Check if any field is different before updating
+                if (
+                    firstRecord.nombre !== nombre ||
+                    firstRecord.cantidad !== cantidad ||
+                    firstRecord.fecha_elaboracion !== fecha_elaboracion ||
+                    firstRecord.fecha_caducidad !== fecha_caducidad ||
+                    firstRecord.proveedor !== proveedor
+                ) {
+                    // Update the record with the new values
+                    update(ref(database, `Harold Vega/${firstKey}`), {
+                        nombre: nombre,
+                        cantidad: cantidad,
+                        fecha_elaboracion: fecha_elaboracion,
+                        fecha_caducidad: fecha_caducidad,
+                        proveedor: proveedor
+                    });
 
-                        // Mostrar mensaje de éxito solo si se actualizó algo
-                        alert('Registro actualizado exitosamente');
-                        visualizarRegistros(); // Refresh the displayed data
+                    // Mostrar mensaje de éxito solo si se actualizó algo
+                    alert('Registro actualizado exitosamente');
+                    visualizarRegistros(); // Refresh the displayed data
 
-                        // Limpiar los campos del formulario
-                        document.getElementById('nombre').value = "";
-                        document.getElementById('cantidad').value = "";
-                        document.getElementById('fecha_elaboracion').value = "";
-                        document.getElementById('fecha_caducidad').value = "";
-                        document.getElementById('proveedor').value = "";
+                    // Limpiar los campos del formulario
+                    document.getElementById('nombre').value = "";
+                    document.getElementById('cantidad').value = "";
+                    document.getElementById('fecha_elaboracion').value = "";
+                    document.getElementById('fecha_caducidad').value = "";
+                    document.getElementById('proveedor').value = "";
 
-                        // Limpiar el mensaje de éxito después de actualizar
-                        document.getElementById('mensaje-error-actualizar').innerText = '';
-                        document.getElementById('mensaje-error-actualizar').style.display = 'none';
-                    } else {
-                        // Mostrar mensaje de que no se realizó ninguna actualización
-                        alert('No se realizaron cambios. El registro no se ha actualizado.');
-                    }
+                    // Limpiar el mensaje de éxito después de actualizar
+                    document.getElementById('mensaje-error-actualizar').innerText = '';
+                    document.getElementById('mensaje-error-actualizar').style.display = 'none';
                 } else {
-                    alert('No hay registros disponibles para actualizar.');
+                    // Mostrar mensaje de que no se realizó ninguna actualización
+                    // alert('No se realizaron cambios. El registro no se ha actualizado.');
+                    document.getElementById('mensaje-error-actualizar').innerText = 'No se realizaron cambios. El registro no se ha actualizado.';
+                    document.getElementById('mensaje-error-actualizar').style.display = 'block';
                 }
-            }, (error) => {
-                console.error("Error fetching data for update:", error);
-            });
-        }
+            } else {
+                alert('No hay registros disponibles para actualizar.');
+            }
+        }, (error) => {
+            console.error("Error fetching data for update:", error);
+        });
+    }
 
         window.editarRegistro = function (key, nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor) {
             // Rellenar el formulario con los datos actuales para editar
