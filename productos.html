@@ -157,11 +157,11 @@
 
                     const row = tableBody.insertRow();
                     row.innerHTML = `
-                        <td>${producto.nombre}</td><hr>
-                        <td>${producto.cantidad}</td><hr>
-                        <td>${producto.fecha_elaboracion}</td><hr>
-                        <td>${producto.fecha_caducidad}</td><hr>
-                        <td>${producto.proveedor}</td><hr>
+                        <td>${producto.nombre}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>${producto.fecha_elaboracion}</td>
+                        <td>${producto.fecha_caducidad}</td>
+                        <td>${producto.proveedor}</td>
                         <td><button onclick="editarRegistro('${key}', '${producto.nombre}', '${producto.cantidad}', '${producto.fecha_elaboracion}', '${producto.fecha_caducidad}', '${producto.proveedor}')">Editar</button></td><hr>
                     `;
                 }
