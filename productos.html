@@ -218,17 +218,6 @@
             document.getElementById('fecha_elaboracion').value = fecha_elaboracion;
             document.getElementById('fecha_caducidad').value = fecha_caducidad;
             document.getElementById('proveedor').value = proveedor;
-
-            // Al hacer clic en el botón de "Actualizar", llamar a la función actualizarRegistro con la clave correspondiente
-            const actualizarButton = document.createElement('button');
-            actualizarButton.innerText = 'Actualizar';
-            actualizarButton.onclick = function () {
-                actualizarRegistro(key);
-            };
-
-            // Reemplazar el botón "Enviar" con el botón "Actualizar"
-            const enviarButton = document.querySelector('form').querySelector('a[type="button"]');
-            enviarButton.parentNode.replaceChild(actualizarButton, enviarButton);
         };
     </script>
 </body>
