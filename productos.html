@@ -63,7 +63,6 @@
                     <label for="proveedor">Proveedor:</label><br>
                     <input type="text" name="proveedor" id="proveedor" oninput="validarTexto(this)" required style="width: 50vw;
                     padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
-                    <p id="mensaje-error-actualizar" style="display: none; color: red;"></p><br>
                     <div  style="display: flex; justify-content: space-between; align-items: center;">
                         <a type="button" onclick="crearRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;">Enviar</a>
                         <a href="#" type="button" onclick="visualizarRegistros()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;" > VISUALIZAR</a>
@@ -85,6 +84,7 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+                <p id="mensaje-error-actualizar" style="display: none; color: green;"></p>
             </div>
         </div>
     </section>
@@ -108,33 +108,33 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        window.crearRegistro=function(){
-            const nombre=document.getElementById("nombre").value;
-            const cantidad=document.getElementById("cantidad").value;
-            const fecha_elaboracion=document.getElementById("fecha_elaboracion").value;
-            const fecha_caducidad=document.getElementById("fecha_caducidad").value;
-            const proveedor=document.getElementById("proveedor").value;
-            console.log(nombre,cantidad,fecha_elaboracion,fecha_caducidad,proveedor);
+        window.crearRegistro = function () {
+            const nombre = document.getElementById("nombre").value;
+            const cantidad = document.getElementById("cantidad").value;
+            const fecha_elaboracion = document.getElementById("fecha_elaboracion").value;
+            const fecha_caducidad = document.getElementById("fecha_caducidad").value;
+            const proveedor = document.getElementById("proveedor").value;
+            console.log(nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor);
             push(
-                ref(database,'Harold Vega'),
+                ref(database, 'Harold Vega'),
                 {
-                    nombre:nombre,
-                    cantidad:cantidad,
-                    fecha_elaboracion:fecha_elaboracion,
+                    nombre: nombre,
+                    cantidad: cantidad,
+                    fecha_elaboracion: fecha_elaboracion,
                     fecha_caducidad: fecha_caducidad,
                     proveedor: proveedor
                 }
             );
             alert('Datos ingresados');
-            document.getElementById('nombre').value="";
-            document.getElementById('cantidad').value="";
-            document.getElementById('fecha_elaboracion').value="";
-            document.getElementById('fecha_caducidad').value="";
-            document.getElementById('proveedor').value="";
+            document.getElementById('nombre').value = "";
+            document.getElementById('cantidad').value = "";
+            document.getElementById('fecha_elaboracion').value = "";
+            document.getElementById('fecha_caducidad').value = "";
+            document.getElementById('proveedor').value = "";
         }
 
-        window.visualizarRegistros=function(){
-            const registrosRef = ref(database,'Harold Vega');
+        window.visualizarRegistros = function () {
+            const registrosRef = ref(database, 'Harold Vega');
             onValue(registrosRef, (snapshot) => {
                 const registros = snapshot.val();
                 const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
@@ -182,6 +182,7 @@
                 const registroRef = ref(database, `Harold Vega/${key}`);
                 remove(registroRef)
                     .then(() => {
+                        // Mostrar mensaje de éxito
                         alert('Registro eliminado exitosamente');
                         visualizarRegistros(); // Refrescar los datos mostrados
                     })
@@ -191,15 +192,15 @@
             }
         };
 
-        window.actualizarRegistro=function(){
-            const nombre=document.getElementById("nombre").value;
-            const cantidad=document.getElementById("cantidad").value;
-            const fecha_elaboracion=document.getElementById("fecha_elaboracion").value;
-            const fecha_caducidad=document.getElementById("fecha_caducidad").value;
-            const proveedor=document.getElementById("proveedor").value;
-            console.log(nombre,cantidad,fecha_elaboracion,fecha_caducidad,proveedor);
+        window.actualizarRegistro = function () {
+            const nombre = document.getElementById("nombre").value;
+            const cantidad = document.getElementById("cantidad").value;
+            const fecha_elaboracion = document.getElementById("fecha_elaboracion").value;
+            const fecha_caducidad = document.getElementById("fecha_caducidad").value;
+            const proveedor = document.getElementById("proveedor").value;
+            console.log(nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor);
 
-            const registrosRef = ref(database,'Harold Vega');
+            const registrosRef = ref(database, 'Harold Vega');
             onValue(registrosRef, (snapshot) => {
                 const registros = snapshot.val();
                 if (registros) {
@@ -207,28 +208,41 @@
                     const firstKey = Object.keys(registros)[0];
                     const firstRecord = registros[firstKey];
 
-                    // Update the record with the new values
-                    update(ref(database, `Harold Vega/${firstKey}`), {
-                        nombre: nombre,
-                        cantidad: cantidad,
-                        fecha_elaboracion: fecha_elaboracion,
-                        fecha_caducidad: fecha_caducidad,
-                        proveedor: proveedor
-                    });
+                    // Check if any field is different before updating
+                    if (
+                        firstRecord.nombre !== nombre ||
+                        firstRecord.cantidad !== cantidad ||
+                        firstRecord.fecha_elaboracion !== fecha_elaboracion ||
+                        firstRecord.fecha_caducidad !== fecha_caducidad ||
+                        firstRecord.proveedor !== proveedor
+                    ) {
+                        // Update the record with the new values
+                        update(ref(database, `Harold Vega/${firstKey}`), {
+                            nombre: nombre,
+                            cantidad: cantidad,
+                            fecha_elaboracion: fecha_elaboracion,
+                            fecha_caducidad: fecha_caducidad,
+                            proveedor: proveedor
+                        });
 
-                    alert('Registro actualizado');
-                    visualizarRegistros(); // Refresh the displayed data
+                        // Mostrar mensaje de éxito solo si se actualizó algo
+                        alert('Registro actualizado exitosamente');
+                        visualizarRegistros(); // Refresh the displayed data
 
-                    // Limpiar los campos del formulario
-                    document.getElementById('nombre').value = "";
-                    document.getElementById('cantidad').value = "";
-                    document.getElementById('fecha_elaboracion').value = "";
-                    document.getElementById('fecha_caducidad').value = "";
-                    document.getElementById('proveedor').value = "";
+                        // Limpiar los campos del formulario
+                        document.getElementById('nombre').value = "";
+                        document.getElementById('cantidad').value = "";
+                        document.getElementById('fecha_elaboracion').value = "";
+                        document.getElementById('fecha_caducidad').value = "";
+                        document.getElementById('proveedor').value = "";
 
-                    // Mostrar mensaje de éxito
-                    document.getElementById('mensaje-error-actualizar').innerText = 'Registro actualizado exitosamente.';
-                    document.getElementById('mensaje-error-actualizar').style.display = 'block';
+                        // Limpiar el mensaje de éxito después de actualizar
+                        document.getElementById('mensaje-error-actualizar').innerText = '';
+                        document.getElementById('mensaje-error-actualizar').style.display = 'none';
+                    } else {
+                        // Mostrar mensaje de que no se realizó ninguna actualización
+                        alert('No se realizaron cambios. El registro no se ha actualizado.');
+                    }
                 } else {
                     alert('No hay registros disponibles para actualizar.');
                 }
@@ -237,7 +251,6 @@
             });
         }
 
-        // Función para editar un registro
         window.editarRegistro = function (key, nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor) {
             // Rellenar el formulario con los datos actuales para editar
             document.getElementById('nombre').value = nombre;
