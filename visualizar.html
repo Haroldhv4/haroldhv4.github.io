@@ -78,6 +78,31 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
+        window.crearRegistro = function () {
+            const nombre = document.getElementById("nombre").value;
+            const cantidad = document.getElementById("cantidad").value;
+            const fecha_elaboracion = document.getElementById("fecha_elaboracion").value;
+            const fecha_caducidad = document.getElementById("fecha_caducidad").value;
+            const proveedor = document.getElementById("proveedor").value;
+            console.log(nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor);
+            push(
+                ref(database, 'HaroldVega'),
+                {
+                    nombre: nombre,
+                    cantidad: cantidad,
+                    fecha_elaboracion: fecha_elaboracion,
+                    fecha_caducidad: fecha_caducidad,
+                    proveedor: proveedor
+                }
+            );
+            alert('Datos ingresados');
+            document.getElementById('nombre').value = "";
+            document.getElementById('cantidad').value = "";
+            document.getElementById('fecha_elaboracion').value = "";
+            document.getElementById('fecha_caducidad').value = "";
+            document.getElementById('proveedor').value = "";
+        }
+
         window.visualizarRegistros = function () {
             const registrosRef = ref(database, 'HaroldVega');
             onValue(registrosRef, (snapshot) => {
