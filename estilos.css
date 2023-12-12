@@ -20,6 +20,43 @@ html {
     height: 100vh;
 }
 
+/* Estilos para la tabla */
+#registros-table {
+    width: 80%; /* Ancho de la tabla */
+    margin: 20px auto; /* Centrar la tabla */
+    border-collapse: collapse; /* Colapsar los bordes de la tabla */
+}
+
+#registros-table th, #registros-table td {
+    border: 2px solid #CCD1E4; /* Establecer bordes para las celdas */
+    padding: 10px; /* Añadir espacio interno a las celdas */
+    text-align: left; /* Alinear el texto a la izquierda en las celdas */
+}
+
+#registros-table th {
+    background-color: #4267B2; /* Color de fondo para las celdas del encabezado */
+    color: white; /* Color del texto en las celdas del encabezado */
+}
+
+/* Estilo adicional para las filas impares (opcional) */
+#registros-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Color de fondo para filas impares */
+}
+
+/* Estilo para los botones en la tabla */
+#registros-table button {
+    background-color: #4CAF50; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Eliminar el borde */
+    padding: 8px 16px; /* Añadir espacio interno */
+    cursor: pointer; /* Cambiar el cursor al pasar el ratón sobre el botón */
+}
+
+#registros-table button:hover {
+    background-color: #45a049; /* Cambiar el color de fondo al pasar el ratón */
+}
+
+
 #inicio .contenido header {
     background-color: rgba(0, 0, 0, .8);
     position: fixed;
