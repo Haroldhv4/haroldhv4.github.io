@@ -177,19 +177,19 @@
             const confirmacion = window.confirm('¿Seguro que quieres eliminar este registro?');
 
             if (confirmacion) {
-                // Eliminar el registro
-                const registroRef = ref(database, `Harold Vega/${key}`);
-                remove(registroRef)
-                    .then(() => {
-                        // Mostrar mensaje de éxito
-                        alert('Registro eliminado exitosamente');
-                        visualizarRegistros(); // Refrescar los datos mostrados
-                    })
-                    .catch((error) => {
-                        console.error('Error al intentar eliminar el registro:', error);
-                    });
-            }
-        };
+            // Eliminar el registro
+            const registroRef = ref(database, `Harold Vega/${key}`);
+            remove(registroRef)
+                .then(() => {
+                    // Mostrar mensaje de éxito
+                    alert('Registro eliminado correctamente');
+                    visualizarRegistros(); // Refrescar los datos mostrados
+                })
+                .catch((error) => {
+                    console.error('Error al intentar eliminar el registro:', error);
+                });
+        }
+};
 
     window.actualizarRegistro = function () {
         const nombre = document.getElementById("nombre").value;
