@@ -163,6 +163,9 @@
                     const firstKey = Object.keys(registros)[0];
                     const firstRecord = registros[firstKey];
 
+                    // Display details of the first record
+                    alert(`Nombre: ${firstRecord.nombre}\nCantidad: ${firstRecord.cantidad}\nFecha de Elaboración: ${firstRecord.fecha_elaboracion}\nFecha de Caducidad: ${firstRecord.fecha_caducidad}\nProveedor: ${firstRecord.proveedor}`);
+
                     // Update the "cantidad" field (you can modify this part based on your structure)
                     update(ref(database, `Harold Vega/${firstKey}`), {
                         cantidad: 999 // Replace 999 with the new value
