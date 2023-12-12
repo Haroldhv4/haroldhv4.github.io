@@ -115,7 +115,7 @@
             const proveedor = document.getElementById("proveedor").value;
             console.log(nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor);
             push(
-                ref(database, 'Harold Vega'),
+                ref(database, 'HaroldVega'),
                 {
                     nombre: nombre,
                     cantidad: cantidad,
@@ -133,7 +133,7 @@
         }
 
         window.visualizarRegistros = function () {
-            const registrosRef = ref(database, 'Harold Vega');
+            const registrosRef = ref(database, 'HaroldVega');
             onValue(registrosRef, (snapshot) => {
                 const registros = snapshot.val();
                 const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
@@ -179,7 +179,7 @@
 
             if (confirmacion) {
             // Eliminar el registro
-            const registroRef = ref(database, `Harold Vega/${key}`);
+            const registroRef = ref(database, `HaroldVega/${key}`);
             remove(registroRef)
                 .then(() => {
                     // Mostrar mensaje de éxito
@@ -200,7 +200,7 @@
         const proveedor = document.getElementById("proveedor").value;
         console.log(nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor);
 
-        const registrosRef = ref(database, 'Harold Vega');
+        const registrosRef = ref(database, 'HaroldVega');
         onValue(registrosRef, (snapshot) => {
             const registros = snapshot.val();
             if (registros) {
@@ -217,7 +217,7 @@
                     firstRecord.proveedor !== proveedor
                 ) {
                     // Update the record with the new values
-                    update(ref(database, `Harold Vega/${firstKey}`), {
+                    update(ref(database, `HaroldVega/${firstKey}`), {
                         nombre: nombre,
                         cantidad: cantidad,
                         fecha_elaboracion: fecha_elaboracion,
