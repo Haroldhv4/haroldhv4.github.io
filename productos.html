@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="estilos.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
     <title>Registro Producto</title>
 </head>
+
 <body>
     <!-- SECCION I N I C I O -->
     <section id="inicio">
@@ -24,7 +28,7 @@
                             <li><a href="#" onclick="seleccionar(this)"> PROVEEDOR </a></li>
                         </ul>
                     </nav>
-                    <!-- Icono del menu responsive -->
+                    <!-- Icono del menú responsive -->
                     <!-- Redes sociales -->
                     <div id="icono-nav" onclick="responsiveMenu()">
                         <i class="fa-solid fa-bars"></i>
@@ -37,47 +41,26 @@
                 </div>
             </header>
             <div class="presentacion">
-                <p class="bienvenida">Registro de Productos</p>
-                <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
-                <form method="post" action="">
-                    <!-- Campos del formulario -->
-                    <label for="nombre">Nombre del Producto (Máx. 20 caracteres):</label><br>
-                    <input type="text" name="nombre" id="nombre" maxlength="20" oninput="validarTexto(this)" required style="width: 50vw;
-                    padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;">
-                    <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
-
-                    <label for="cantidad">Cantidad (Máx. 4 dígitos):</label><br>
-                    <input type="number" name="cantidad" id="cantidad" max="9999" required style="width: 50vw;
-                    padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
-
-                    <label for="fecha_elaboracion">Fecha de Elaboración:</label><br>
-                    <input type="date" name="fecha_elaboracion" id="fecha_elaboracion" required style="width: 50vw;
-                    padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
-                    
-                    <label for="fecha_caducidad">Fecha de Caducidad:</label><br>
-                    <input type="date" name="fecha_caducidad" id="fecha_caducidad" required style="width: 50vw;
-                    padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
-
-                    <label for="proveedor">Proveedor:</label><br>
-                    <input type="text" name="proveedor" id="proveedor" oninput="validarTexto(this)" required style="width: 50vw;
-                    padding: 10px; outline: none; border: 5px solid #CCD1E4; font-weight: 600;"><br>
-                    <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
-                    <div  style="display: flex; justify-content: space-between; align-items: center;">
-                    <a type="button" onclick="crearRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;">Enviar</a>
-                    <a href="visualizar.html" type="button"  onclick="fetchAndDisplayData()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;" > VISUALIZAR</a>
-                    </div>
-                </form>
+                <p class="bienvenida">Lista de Productos</p>
+                <table id="registros-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Fecha de Elaboración</th>
+                            <th>Fecha de Caducidad</th>
+                            <th>Proveedor</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </section>
-        <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Your web app's Firebase configuration
+    <script type="module">
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBMJsVpnbOwVOiVNbTZScZdet9qlGigDL0",
             authDomain: "conexion-8ec0d.firebaseapp.com",
@@ -89,33 +72,57 @@
         };
 
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-        window.crearRegistro=function(){
-            const nombre=document.getElementById("nombre").value;
-            const cantidad=document.getElementById("cantidad").value;
-            const fecha_elaboracion=document.getElementById("fecha_elaboracion").value;
-            const fecha_caducidad=document.getElementById("fecha_caducidad").value;
-            const proveedor=document.getElementById("proveedor").value;
-            console.log(nombre,cantidad,fecha_elaboracion,fecha_caducidad,proveedor);
-            push(
-                ref(database,'Harold Vega'),
-                {
-                    nombre:nombre,
-                    cantidad:cantidad,
-                    fecha_elaboracion:fecha_elaboracion,
-                    fecha_caducidad: fecha_caducidad,
-                    proveedor: proveedor
-                }
-            );
-            alert('Datos ingresados');
-            document.getElementById('nombre').value="";
-            document.getElementById('cantidad').value="";
-            document.getElementById('fecha_elaboracion').value="";
-            document.getElementById('fecha_caducidad').value="";
-            document.getElementById('proveedor').value="";
+        function fetchAndDisplayData() {
+            const registrosRef = firebase.database().ref('Harold Vega');
+
+            registrosRef.once('value')
+                .then((snapshot) => {
+                    const registros = snapshot.val();
+
+                    if (registros) {
+                        displayRecordsInTable(registros);
+                    } else {
+                        console.log('No hay registros disponibles.');
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
         }
-  </script>
+
+        function displayRecordsInTable(registros) {
+            const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear previous content
+
+            for (const key in registros) {
+                if (registros.hasOwnProperty(key)) {
+                    const producto = registros[key];
+
+                    const row = tableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${producto.nombre}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>${producto.fecha_elaboracion}</td>
+                        <td>${producto.fecha_caducidad}</td>
+                        <td>${producto.proveedor}</td>
+                        <td><button onclick="editarRegistro('${key}')">Editar</button></td>
+                    `;
+                }
+            }
+        }
+
+        function editarRegistro(registroKey) {
+            alert(`Editar registro con clave: ${registroKey}`);
+            // Add your logic for editing the record here
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchAndDisplayData();
+        });
+    </script>
 </body>
+
 </html>
