@@ -76,9 +76,7 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getDatabase, ref, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -95,33 +93,33 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        window.crearRegistro = function () {
-            const nombre = document.getElementById("nombre").value;
-            const cantidad = document.getElementById("cantidad").value;
-            const fecha_elaboracion = document.getElementById("fecha_elaboracion").value;
-            const fecha_caducidad = document.getElementById("fecha_caducidad").value;
-            const proveedor = document.getElementById("proveedor").value;
-            console.log(nombre, cantidad, fecha_elaboracion, fecha_caducidad, proveedor);
+        window.crearRegistro=function(){
+            const nombre=document.getElementById("nombre").value;
+            const cantidad=document.getElementById("cantidad").value;
+            const fecha_elaboracion=document.getElementById("fecha_elaboracion").value;
+            const fecha_caducidad=document.getElementById("fecha_caducidad").value;
+            const proveedor=document.getElementById("proveedor").value;
+            console.log(nombre,cantidad,fecha_elaboracion,fecha_caducidad,proveedor);
             push(
-                ref(database, 'Harold Vega'),
+                ref(database,'Harold Vega'),
                 {
-                    nombre: nombre,
-                    cantidad: cantidad,
-                    fecha_elaboracion: fecha_elaboracion,
+                    nombre:nombre,
+                    cantidad:cantidad,
+                    fecha_elaboracion:fecha_elaboracion,
                     fecha_caducidad: fecha_caducidad,
                     proveedor: proveedor
                 }
             );
             alert('Datos ingresados');
-            document.getElementById('nombre').value = "";
-            document.getElementById('cantidad').value = "";
-            document.getElementById('fecha_elaboracion').value = "";
-            document.getElementById('fecha_caducidad').value = "";
-            document.getElementById('proveedor').value = "";
+            document.getElementById('nombre').value="";
+            document.getElementById('cantidad').value="";
+            document.getElementById('fecha_elaboracion').value="";
+            document.getElementById('fecha_caducidad').value="";
+            document.getElementById('proveedor').value="";
         }
 
-        window.fetchAndDisplayData = function () {
-            const registrosRef = ref(database, 'Harold Vega');
+        window.fetchAndDisplayData=function(){
+            const registrosRef = ref(database,'Harold Vega');
             onValue(registrosRef, (snapshot) => {
                 const registros = snapshot.val();
                 if (registros) {
@@ -154,8 +152,15 @@
             }
         }
 
-        window.actualizarRegistro = function () {
-            const registrosRef = ref(database, 'Harold Vega');
+        window.actualizarRegistro=function(){
+            const nombre=document.getElementById("nombre").value;
+            const cantidad=document.getElementById("cantidad").value;
+            const fecha_elaboracion=document.getElementById("fecha_elaboracion").value;
+            const fecha_caducidad=document.getElementById("fecha_caducidad").value;
+            const proveedor=document.getElementById("proveedor").value;
+            console.log(nombre,cantidad,fecha_elaboracion,fecha_caducidad,proveedor);
+
+            const registrosRef = ref(database,'Harold Vega');
             onValue(registrosRef, (snapshot) => {
                 const registros = snapshot.val();
                 if (registros) {
@@ -163,12 +168,13 @@
                     const firstKey = Object.keys(registros)[0];
                     const firstRecord = registros[firstKey];
 
-                    // Display details of the first record
-                    alert(`Nombre: ${firstRecord.nombre}\nCantidad: ${firstRecord.cantidad}\nFecha de Elaboración: ${firstRecord.fecha_elaboracion}\nFecha de Caducidad: ${firstRecord.fecha_caducidad}\nProveedor: ${firstRecord.proveedor}`);
-
-                    // Update the "cantidad" field (you can modify this part based on your structure)
+                    // Update the record with the new values
                     update(ref(database, `Harold Vega/${firstKey}`), {
-                        cantidad: 999 // Replace 999 with the new value
+                        nombre: nombre,
+                        cantidad: cantidad,
+                        fecha_elaboracion: fecha_elaboracion,
+                        fecha_caducidad: fecha_caducidad,
+                        proveedor: proveedor
                     });
 
                     alert('Registro actualizado');
