@@ -169,6 +169,7 @@
                             <button onclick="eliminarRegistro('${key}')">Eliminar</button>
                         </td>
                     `;
+                    row.style.backgroundColor = white;
                 }
             }
         }
@@ -188,8 +189,8 @@
                 .catch((error) => {
                     console.error('Error al intentar eliminar el registro:', error);
                 });
-        }
-};
+            }
+        };
 
     window.actualizarRegistro = function () {
         const nombre = document.getElementById("nombre").value;
