@@ -162,11 +162,31 @@
                         <td>${producto.fecha_elaboracion}</td>
                         <td>${producto.fecha_caducidad}</td>
                         <td>${producto.proveedor}</td>
-                        <td><button onclick="editarRegistro('${key}', '${producto.nombre}', '${producto.cantidad}', '${producto.fecha_elaboracion}', '${producto.fecha_caducidad}', '${producto.proveedor}')">Editar</button></td>
+                        <td>
+                            <button onclick="editarRegistro('${key}', '${producto.nombre}', '${producto.cantidad}', '${producto.fecha_elaboracion}', '${producto.fecha_caducidad}', '${producto.proveedor}')">Editar</button>
+                            <button onclick="confirmarEliminar('${key}')">Eliminar</button>
+                        </td>
                     `;
                 }
             }
         }
+
+        window.confirmarEliminar = function (key) {
+            const confirmacion = window.confirm('¿Seguro que quieres eliminar este registro?');
+
+            if (confirmacion) {
+                // Eliminar el registro
+                const registroRef = ref(database, `Harold Vega/${key}`);
+                registroRef.remove()
+                    .then(() => {
+                        alert('Registro eliminado exitosamente');
+                        fetchAndDisplayData(); // Refrescar los datos mostrados
+                    })
+                    .catch((error) => {
+                        console.error('Error al intentar eliminar el registro:', error);
+                    });
+            }
+        };
 
         window.actualizarRegistro=function(){
             const nombre=document.getElementById("nombre").value;
