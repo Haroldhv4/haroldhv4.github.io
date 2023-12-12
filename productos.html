@@ -179,6 +179,13 @@
 
                     alert('Registro actualizado');
                     fetchAndDisplayData(); // Refresh the displayed data
+
+                    // Limpiar los campos del formulario
+                    document.getElementById('nombre').value = "";
+                    document.getElementById('cantidad').value = "";
+                    document.getElementById('fecha_elaboracion').value = "";
+                    document.getElementById('fecha_caducidad').value = "";
+                    document.getElementById('proveedor').value = "";
                 } else {
                     console.log('No hay registros disponibles para actualizar.');
                 }
