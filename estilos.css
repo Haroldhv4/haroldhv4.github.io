@@ -17,7 +17,7 @@ html {
     background: linear-gradient( rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("img/1.jpg");
     background-size: cover;
     background-position: center center;
-    height: 100vh;
+    height: 1100px;
 }
 
 /* Estilos para la tabla */
@@ -56,6 +56,8 @@ html {
     background-color: #45a049; /* Cambiar el color de fondo al pasar el ratón */
 }
 
+#registros-table tbody td {
+    color: black; /* Cambia el color del texto a negro */
 
 #inicio .contenido header {
     background-color: rgba(0, 0, 0, .8);
