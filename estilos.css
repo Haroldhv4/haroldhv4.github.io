@@ -58,6 +58,7 @@ html {
 
 #registros-table tbody td {
     color: black; /* Cambia el color del texto a negro */
+}
 
 #inicio .contenido header {
     background-color: rgba(0, 0, 0, .8);
