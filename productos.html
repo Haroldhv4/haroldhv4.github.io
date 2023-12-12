@@ -66,7 +66,7 @@
                     <p id="mensaje-error" style="display: none; color: red;">Solo se permiten letras y espacios.</p><br>
                     <div  style="display: flex; justify-content: space-between; align-items: center;">
                     <a type="button" onclick="crearRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;">Enviar</a>
-                    <a href="visualizar.html" type="button"  onclick="fetchAndDisplayData()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;" > VISUALIZAR</a>
+                    <a href="visualizar.html" type="button"  onclick="visualizarRegistros()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;" > VISUALIZAR</a>
                     <a type="button" onclick="actualizarRegistro()" style="display: block; margin: 10px auto; font-size: 15px; padding: 5px 10px; width: 150px; background-position: center; text-align: center;" > ACTUALIZAR</a>
                     </div>
                 </form>
@@ -118,7 +118,7 @@
             document.getElementById('proveedor').value="";
         }
 
-        window.fetchAndDisplayData=function(){
+        window.visualizarRegistros=function(){
             const registrosRef = ref(database,'Harold Vega');
             onValue(registrosRef, (snapshot) => {
                 const registros = snapshot.val();
