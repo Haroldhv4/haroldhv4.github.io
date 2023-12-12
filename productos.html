@@ -151,14 +151,15 @@
 
         function displayRecordsInTable(registros) {
             const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = ''; // Clear previous content
+            let tableRows = ''; // Variable para acumular las filas
 
-            for (const key in registros) {
-                if (registros.hasOwnProperty(key)) {
-                    const producto = registros[key];
+        for (const key in registros) {
+            if (registros.hasOwnProperty(key)) {
+                const producto = registros[key];
 
-                    const row = tableBody.insertRow();
-                    row.innerHTML = `
+                // Construir una cadena con la fila actual
+                tableRows += `
+                    <tr>
                         <td>${producto.nombre}</td>
                         <td>${producto.cantidad}</td>
                         <td>${producto.fecha_elaboracion}</td>
@@ -168,11 +169,18 @@
                             <button onclick="editarRegistro('${key}', '${producto.nombre}', '${producto.cantidad}', '${producto.fecha_elaboracion}', '${producto.fecha_caducidad}', '${producto.proveedor}')">Editar</button>
                             <button onclick="eliminarRegistro('${key}')">Eliminar</button>
                         </td>
-                    `;
-                    row.style.backgroundColor = 'white';
-                }
+                    </tr>`;
             }
         }
+
+        // Asignar la cadena acumulada al contenido de la tabla
+        tableBody.innerHTML = tableRows;
+
+        if (tableRows === '') {
+            tableBody.innerHTML = '<tr><td colspan="6">No hay registros disponibles.</td></tr>';
+            console.log('No hay registros disponibles.');
+        }
+    }
 
         window.eliminarRegistro = function (key) {
             const confirmacion = window.confirm('¿Seguro que quieres eliminar este registro?');
