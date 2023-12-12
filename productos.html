@@ -137,9 +137,12 @@
             const registrosRef = ref(database,'Harold Vega');
             onValue(registrosRef, (snapshot) => {
                 const registros = snapshot.val();
+                const tableBody = document.getElementById('registros-table').getElementsByTagName('tbody')[0];
+
                 if (registros) {
                     displayRecordsInTable(registros);
                 } else {
+                    tableBody.innerHTML = '<tr><td colspan="6">No hay registros disponibles.</td></tr>';
                     console.log('No hay registros disponibles.');
                 }
             }, (error) => {
@@ -180,7 +183,7 @@
                 remove(registroRef)
                     .then(() => {
                         alert('Registro eliminado exitosamente');
-                        fetchAndDisplayData(); // Refrescar los datos mostrados
+                        visualizarRegistros(); // Refrescar los datos mostrados
                     })
                     .catch((error) => {
                         console.error('Error al intentar eliminar el registro:', error);
@@ -214,7 +217,7 @@
                     });
 
                     alert('Registro actualizado');
-                    fetchAndDisplayData(); // Refresh the displayed data
+                    visualizarRegistros(); // Refresh the displayed data
 
                     // Limpiar los campos del formulario
                     document.getElementById('nombre').value = "";
@@ -223,7 +226,7 @@
                     document.getElementById('fecha_caducidad').value = "";
                     document.getElementById('proveedor').value = "";
                 } else {
-                    console.log('No hay registros disponibles para actualizar.');
+                    alert('No hay registros disponibles para actualizar.');
                 }
             }, (error) => {
                 console.error("Error fetching data for update:", error);
